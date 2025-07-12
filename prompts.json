@@ -1,0 +1,173 @@
+{
+  "event": {
+    "name": "Event Promotion",
+    "title": "Prompt Generator – Event",
+    "description": "Fill out the fields below to generate your event promotion prompt.",
+    "buttonText": "Generate Prompt",
+    "copyButtonText": "Copy Prompt",
+    "errorText": "*Please fill out all the fields*",
+    "fields": [
+      {
+        "id": "eventName",
+        "label": "Event Name",
+        "placeholder": "My B2B Summit"
+      },
+      {
+        "id": "eventFormat",
+        "label": "Event Format",
+        "placeholder": "Online or In-person"
+      },
+      {
+        "id": "eventDate",
+        "label": "Event Date",
+        "placeholder": "26 June"
+      },
+      {
+        "id": "eventTime",
+        "label": "Event Time",
+        "placeholder": "10:00 - 10:45 CET"
+      },
+      {
+        "id": "topic",
+        "label": "Topic",
+        "placeholder": "Marketing Automation"
+      },
+      {
+        "id": "speakerName",
+        "label": "Speaker's Name",
+        "placeholder": "John Doe"
+      },
+      {
+        "id": "speakerCompany",
+        "label": "Speaker's Company",
+        "placeholder": "Acme Corp"
+      },
+      {
+        "id": "targetAudience",
+        "label": "Target Audience",
+        "placeholder": "Marketing Managers"
+      },
+      {
+        "id": "landingPage",
+        "label": "Link to Landing Page",
+        "placeholder": "https://example.com/register"
+      }
+    ],
+    "template": "You are a B2B Marketer promoting an upcoming {{eventFormat}} B2B event on LinkedIn. The event is called {{eventName}} happening on {{eventDate}} at {{eventTime}}. The speakers are {{speakerName}} from {{speakerCompany}}. The target audience are {{targetAudience}}, and the session covers {{topic}}. People can register to the event on this page {{landingPage}}. Create a LinkedIn post that is engaging, encourages sign-ups, and highlights what attendees will gain. Tone of voice is approachable and vibrant. Include a call-to-action and mention that it's free. Keep it under 150 words. Give me multiple versions: one for the initial announcement, one reminder a week before the event, and a final reminder one day before the event. Avoid using bullet points and limit the use of emojis."
+  },
+  "thoughtLeadership": {
+    "name": "Thought Leadership Promotion",
+    "title": "Prompt Generator – Thought Leadership",
+    "description": "Fill out the fields below to generate a LinkedIn post to promote thought leadership content.",
+    "buttonText": "Generate Prompt",
+    "copyButtonText": "Copy Prompt",
+    "errorText": "*Please fill out all the fields*",
+    "fields": [
+      {
+        "id": "resourceType",
+        "label": "Resource Type",
+        "placeholder": "Blog, e-book, infographic, webinar, etc."
+      },
+      {
+        "id": "resourceTopic",
+        "label": "Resource Topic",
+        "placeholder": "ABM, Buyer persona, Customer journey, Academy, etc."
+      },
+      {
+        "id": "painPoints",
+        "label": "Pain Points",
+        "placeholder": "e.g. defining a buyer persona, aligning marketing and sales"
+      },
+      {
+        "id": "content",
+        "label": "Content",
+        "placeholder": "Brief summary or excerpt from the resource"
+      },
+      {
+        "id": "keyMessage",
+        "label": "Key Message",
+        "placeholder": "e.g. ABM helps align sales and marketing"
+      },
+      {
+        "id": "landingPage",
+        "label": "Landing Page Link",
+        "placeholder": "https://example.com/resource"
+      }
+    ],
+    "template": "You are a B2B Marketer and need to write a LinkedIn post to promote a new thought leadership {{resourceType}} about {{resourceTopic}}. It’s for B2B Marketers and Sales team who are struggling to {{painPoints}}. Tone should be approachable, vibrant, professional but also conversational. The {{resourceType}} explains {{content}}. The main takeaway is that {{keyMessage}}. The content can be fully viewed here {{landingPage}}. The goal of the post is to drive traffic to the resource while showcasing expertise. Keep the post under 150 words and avoid using bullet points and limit the use of emojis."
+  },
+
+  "abmMessaging": {
+    "name": "ABM Messaging – First Draft",
+    "title": "Prompt Generator – ABM Messaging",
+    "description": "Fill out the fields to generate a personalized ABM messaging story.",
+    "buttonText": "Generate Prompt",
+    "copyButtonText": "Copy Prompt",
+    "errorText": "*Please fill out all the fields*",
+    "fields": [
+      {
+        "id": "position",
+        "label": "Position",
+        "placeholder": "CEO, CFO, Marketing manager"
+      },
+      {
+        "id": "corporationType",
+        "label": "Type of Corporation",
+        "placeholder": "Big corporate beer brand, coffee brand, SaaS company, etc."
+      },
+      {
+        "id": "triggers",
+        "label": "Triggers",
+        "placeholder": "e.g. consumer-driven shifts, digital transformation"
+      },
+      {
+        "id": "painPoints",
+        "label": "Pain Points",
+        "placeholder": "e.g. making ROI on global initiatives"
+      },
+      {
+        "id": "challenges",
+        "label": "Challenges",
+        "placeholder": "e.g. balancing cost pressure with long-term brand heritage"
+      },
+      {
+        "id": "additionalInfo",
+        "label": "Additional Info",
+        "placeholder": "e.g. We are shifting to digital channels"
+      },
+      {
+        "id": "partner",
+        "label": "Partner",
+        "placeholder": "e.g. SPOTONVISION"
+      }
+    ],
+    "template": "Imagine you are a {{position}} of a {{corporationType}}. Your triggers are {{triggers}}. Questions you struggle with are for example: {{painPoints}}. Your main challenges concern {{challenges}}. {{additionalInfo}}. What story would convince you that {{partner}} would be the right partner/fit for you, taking your triggers and challenges into account."
+  },
+
+  "abmRefine": {
+    "name": "ABM Messaging – Refine Storyline",
+    "title": "Prompt Generator – Refine ABM Storyline",
+    "description": "Sharpen an existing ABM storyline for a specific target product.",
+    "buttonText": "Generate Prompt",
+    "copyButtonText": "Copy Prompt",
+    "errorText": "*Please fill out all the fields*",
+    "fields": [
+      {
+        "id": "targetProduct",
+        "label": "Target Product",
+        "placeholder": "Beer brand, SaaS platform, retail brand, etc."
+      },
+      {
+        "id": "storyline",
+        "label": "Storyline",
+        "placeholder": "Insert full draft of your current storyline"
+      },
+      {
+        "id": "targetProductStrategy",
+        "label": "Target Product Strategy",
+        "placeholder": "e.g. growth in premium segment, entry into new market"
+      }
+    ],
+    "template": "We have crafted a storyline for our targeted {{targetProduct}}. It goes as follow: {{storyline}}. Could you sharpen this story up, including the {{targetProduct}} aimed strategy: {{targetProductStrategy}}."
+  }
+}

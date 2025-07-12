@@ -1,19 +1,13 @@
-// Pull inputs from the form for prompt generation
-const form = document.getElementById("prompt-form");
-const eventName = document.getElementById("eventName");
-const eventFormat = document.getElementById("eventFormat");
-const eventDate = document.getElementById("eventDate");
-const eventTime = document.getElementById("eventTime");
-const topic = document.getElementById("topic");
-const speakerName = document.getElementById("speakerName");
-const speakerCompany = document.getElementById("speakerCompany");
-const targetAudience = document.getElementById("targetAudience");
-const landingPage = document.getElementById("landingPage");
-const promptDisplay = document.getElementById("aiPrompt");
-const copyPromptButton = document.getElementById("copy-prompt-button");
-const errorMsg = document.getElementById("errorMsg");
 
-let timerId;
+const container = document.getElementById("container");
+const form = document.getElementById("prompt-form");
+const promptDisplay = document.getElementById("aiPrompt");
+
+let config = null;
+
+function fillTemplate(template, values) {
+  return template.replace(/{{(.*?)}}/g, (_, key) => values[key.trim()] || "");
+}
 
 function typeWriter(txt) {
   let i = 0;
@@ -23,43 +17,98 @@ function typeWriter(txt) {
     if (i < txt.length) {
       promptDisplay.innerHTML += txt.charAt(i);
       i++;
-      timerId = setTimeout(type, speed);
-    } else {
-      clearTimeout(timerId);
+      setTimeout(type, speed);
     }
   }
   type();
 }
 
-function handleSubmit(event) {
-  event.preventDefault();
-  clearTimeout(timerId);
-  
-  // Ensure all fields are filled
-  if (
-    eventName.value === "" ||
-    eventFormat.value === "" ||
-    eventDate.value === "" ||
-    eventTime.value === "" ||
-    topic.value === "" ||
-    speakerName.value === "" ||
-    speakerCompany.value === "" ||
-    targetAudience.value === "" ||
-    landingPage.value === ""
-  ) {
+function buildForm() {
+  document.title = config.title;
+
+  const promptDisplay = document.getElementById("aiPrompt");
+  if (promptDisplay) {
+    promptDisplay.innerHTML = "";
+  }
+
+  const h1 = document.createElement("h1");
+  h1.innerText = config.title;
+  const p = document.createElement("p");
+  p.innerText = config.description;
+
+  const oldH1 = container.querySelector("h1");
+  const oldDesc = Array.from(container.children).find(
+    el => el.tagName === "P" && !el.id
+  );
+
+  if (oldH1) oldH1.remove();
+  if (oldDesc) oldDesc.remove();
+
+  container.prepend(p);
+  container.prepend(h1);
+
+  form.innerHTML = "";
+  config.fields.forEach(field => {
+    const label = document.createElement("label");
+    label.innerText = `${field.label}: `;
+    const textarea = document.createElement("textarea");
+    textarea.id = field.id;
+    textarea.placeholder = field.placeholder;
+    textarea.className = "small-textarea bg-light";
+    form.appendChild(label);
+    form.appendChild(document.createElement("br"));
+    form.appendChild(textarea);
+    form.appendChild(document.createElement("br"));
+  });
+
+  const error = document.createElement("p");
+  error.id = "errorMsg";
+  error.className = "hidden error-msg bg-danger border border-1 border-dark";
+  error.textContent = config.errorText;
+  form.appendChild(error);
+
+  const generateButton = document.createElement("button");
+  generateButton.type = "submit";
+  generateButton.innerText = config.buttonText;
+  generateButton.className = "hover active";
+  form.appendChild(generateButton);
+
+  const copyButton = document.createElement("button");
+  copyButton.type = "button";
+  copyButton.innerText = config.copyButtonText;
+  copyButton.id = "copy-prompt-button";
+  copyButton.className = "copy-disabled";
+  copyButton.disabled = true;
+  form.appendChild(copyButton);
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const values = {};
+  let valid = true;
+
+  config.fields.forEach(field => {
+    const val = document.getElementById(field.id).value.trim();
+    values[field.id] = val;
+    if (!val) valid = false;
+  });
+
+  const errorMsg = document.getElementById("errorMsg");
+  if (!valid) {
     errorMsg.classList.remove("hidden");
     return;
   }
 
-  // Build the LinkedIn post prompt
-  const prompt = `You are a B2B Marketer promoting an upcoming ${eventFormat.value} B2B event on LinkedIn. The event is called ${eventName.value} happening on ${eventDate.value} at ${eventTime.value}. The speakers are ${speakerName.value} from ${speakerCompany.value}. The target audience are ${targetAudience.value}, and the session covers ${topic.value}. People can register to the event on this page ${landingPage.value}. Create a LinkedIn post that is engaging, encourages sign-ups, and highlights what attendees will gain. Tone of voice is approachable and vibrant. Include a call-to-action and mention that it's free. Keep it under 150 words. Give me multiple versions: one for the initial announcement, one reminder a week before the event, and a final reminder one day before the event. Avoid using bullet points and limit the use of emojis.`;
-
-  copyPromptButton.disabled = false;
-  copyPromptButton.classList.remove("copy-disabled");
-  copyPromptButton.classList.add("enabled", "hover", "active");
   errorMsg.classList.add("hidden");
 
-  typeWriter(prompt);
+  const result = fillTemplate(config.template, values);
+  promptDisplay.innerText = "";
+  typeWriter(result);
+
+  const copyButton = document.getElementById("copy-prompt-button");
+  copyButton.disabled = false;
+  copyButton.classList.remove("copy-disabled");
+  copyButton.classList.add("enabled", "hover", "active");
 }
 
 function copyPrompt() {
@@ -73,5 +122,34 @@ function copyPrompt() {
   window.open("http://chat.openai.com", "_blank");
 }
 
-form.addEventListener("submit", handleSubmit);
-copyPromptButton.addEventListener("click", copyPrompt);
+fetch("prompts.json")
+  .then(res => res.json())
+  .then(data => {
+    config = data.event;
+    buildForm();
+    document.getElementById("prompt-form").addEventListener("submit", handleSubmit);
+    document.addEventListener("click", function (e) {
+      if (e.target && e.target.id === "copy-prompt-button") copyPrompt();
+    });
+  });
+
+
+
+function loadPrompt(type) {
+  fetch("prompts.json")
+    .then(res => res.json())
+    .then(data => {
+      config = data[type]; // dynamically load based on tab
+      buildForm();
+    });
+}
+
+// On tab click
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("tab-button")) {
+    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+    e.target.classList.add("active");
+    const promptType = e.target.getAttribute("data-prompt");
+    loadPrompt(promptType);
+  }
+});
