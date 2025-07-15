@@ -44,6 +44,34 @@ function buildForm() {
   if (oldH1) oldH1.remove();
   if (oldDesc) oldDesc.remove();
 
+  const existingHideBtn = container.querySelector(".hide-button");
+  if (existingHideBtn) existingHideBtn.remove();
+
+  // Add a "Hide" button at the top of the container
+  const hideButton = document.createElement("button");
+  hideButton.innerText = "Hide";
+  hideButton.className = "tab-button hide-button";
+  hideButton.style.marginBottom = "20px";
+  hideButton.onclick = () => {
+    // Trigger fade-out
+    container.classList.remove("fade-in");
+    container.classList.add("fade-out");
+
+    // Wait for opacity animation, then hide
+    setTimeout(() => {
+      container.style.display = "none";
+    }, 300);
+
+    // Scroll back to tabs
+    document.querySelector(".tab-groups").scrollIntoView({ behavior: "smooth" });
+
+    // Remove active tab highlight
+    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+  };
+
+  // Insert it just before the form
+  container.prepend(hideButton);
+
   container.prepend(p);
   container.prepend(h1);
 
@@ -125,8 +153,8 @@ function copyPrompt() {
 fetch("prompts.json")
   .then(res => res.json())
   .then(data => {
-    config = data.event;
-    buildForm();
+    // config = data.event;
+    // buildForm();
     document.getElementById("prompt-form").addEventListener("submit", handleSubmit);
     document.addEventListener("click", function (e) {
       if (e.target && e.target.id === "copy-prompt-button") copyPrompt();
@@ -141,6 +169,19 @@ function loadPrompt(type) {
     .then(data => {
       config = data[type]; // dynamically load based on tab
       buildForm();
+      // Show the hidden container
+      const containerEl = document.getElementById("container");
+      container.classList.remove("fade-out");
+      container.style.display = "block";
+
+      // 👇 Force browser to recognize the change before transitioning
+      void container.offsetWidth;
+
+      container.classList.add("fade-in");
+
+      // Scroll to the container smoothly
+      containerEl.scrollIntoView({ behavior: "smooth" });
+      
     });
 }
 

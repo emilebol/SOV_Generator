@@ -10,16 +10,20 @@ h1 {
   font-family: "Montserrat", Arial, Raleway, sans-serif;
   font-weight: 700;
   font-size: 1.75rem;
+  color: #0033a1;
   text-align: center;
 }
 
 /* Form */
 
 label {
-  color: #0d0d0d;
-  font-family: 'Fira Sans', Arial, sans-serif;
-  font-weight: 700;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
   font-size: 18px;
+  color: #0033a1;
+  margin-bottom: 0px;
+  margin-top: 15px;
 }
 
 textarea {
@@ -47,6 +51,32 @@ textarea {
   padding: 40px 30px;
   border-radius: 30px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+#container {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: none; /* no !important */
+}
+
+#container.fade-in {
+  display: block !important;
+  opacity: 1;
+}
+
+#container.fade-out {
+  opacity: 0;
+}
+
+#container p:not(#aiPrompt) {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #0033a1;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .prompt-box {
@@ -207,7 +237,7 @@ textarea {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.3s;
-  box-shadow: 0px 0px 10px #404040;
+  /*box-shadow: 0px 0px 10px #404040;*/
   margin-top: 20px;
   font-weight: 700;
 }
@@ -228,7 +258,7 @@ textarea {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.3s;
-  box-shadow: 0px 0px 10px #404040;
+  /*box-shadow: 0px 0px 10px #404040;*/
   margin-top: 20px;
   font-weight: 700;
 }
@@ -236,6 +266,20 @@ textarea {
 .hover:hover {
   background: #ED5B45;
 }
+
+/* Hide Button */
+
+.hide-button {
+  display: block;
+  margin: 0 auto 30px auto;  /* Center horizontally with bottom space */
+  font-size: 18px;
+  padding: 16px 28px;
+}
+
+.hide-button:hover {
+  background-color: #bbb;
+}
+
 
 /* Prompt Display Box */
 
@@ -247,7 +291,7 @@ textarea {
   margin: 50px auto;
   background-color: #0d0d0d;
   border-radius: 10px;
-  box-shadow: 0px 0px 15px #404040;
+  /*box-shadow: 0px 0px 15px #404040;*/
   padding: 50px 13px;
   margin-top: 20px;
 }
