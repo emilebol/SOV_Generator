@@ -10,20 +10,16 @@ h1 {
   font-family: "Montserrat", Arial, Raleway, sans-serif;
   font-weight: 700;
   font-size: 1.75rem;
-  color: #0033a1;
   text-align: center;
 }
 
 /* Form */
 
 label {
-  display: block;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
+  color: #0d0d0d;
+  font-family: 'Fira Sans', Arial, sans-serif;
+  font-weight: 700;
   font-size: 18px;
-  color: #0033a1;
-  margin-bottom: 0px;
-  margin-top: 15px;
 }
 
 textarea {
@@ -66,17 +62,6 @@ textarea {
 
 #container.fade-out {
   opacity: 0;
-}
-
-#container p:not(#aiPrompt) {
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #0033a1;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  line-height: 1.6;
-  text-align: center;
 }
 
 .prompt-box {
@@ -237,7 +222,7 @@ textarea {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.3s;
-  /*box-shadow: 0px 0px 10px #404040;*/
+  box-shadow: 0px 0px 10px #404040;
   margin-top: 20px;
   font-weight: 700;
 }
@@ -258,7 +243,7 @@ textarea {
   padding-top: 10px;
   padding-bottom: 10px;
   transition: all 0.3s;
-  /*box-shadow: 0px 0px 10px #404040;*/
+  box-shadow: 0px 0px 10px #404040;
   margin-top: 20px;
   font-weight: 700;
 }
@@ -274,6 +259,16 @@ textarea {
   margin: 0 auto 30px auto;  /* Center horizontally with bottom space */
   font-size: 18px;
   padding: 16px 28px;
+  width: 200px;              /* 👈 Make it wider */
+  height: 60px;              /* 👈 Make it taller */
+  background-color: #FFF8F7;
+  border: 2px solid #ED5B45;
+  color: #ED5B45;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
 }
 
 .hide-button:hover {
@@ -291,7 +286,7 @@ textarea {
   margin: 50px auto;
   background-color: #0d0d0d;
   border-radius: 10px;
-  /*box-shadow: 0px 0px 15px #404040;*/
+  box-shadow: 0px 0px 15px #404040;
   padding: 50px 13px;
   margin-top: 20px;
 }
@@ -313,28 +308,53 @@ textarea {
 
 /* --- Tabs Style --- */
 .tab-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* ✅ precies 2 per rij */
   gap: 10px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto 5px;
 }
 
 .tab-button {
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   background-color: #FFF8F7;
   border: 2px solid #ED5B45;
   color: #ED5B45;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  padding: 10px 20px;
-  cursor: pointer;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  padding: 6px 10px;
+
+  white-space: normal;
+  word-break: break-word;
+
   border-radius: 10px;
+  cursor: pointer;
   transition: background 0.3s, color 0.3s;
+}
+
+.tab-button:hover {
+  background-color: #bbb;
 }
 
 .tab-button.active {
   background-color: #ED5B45;
   color: white;
+}
+
+.tab-button:nth-child(odd):last-child {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .tab-groups {
@@ -351,7 +371,7 @@ textarea {
 
 .tab-section h2 {
   font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #ED5B45;
   margin-bottom: 10px;
 }
